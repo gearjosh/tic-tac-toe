@@ -78,21 +78,23 @@ Game.prototype.turnTaker = function() {
   console.log(currentPlayer);
 };
 
-Board.prototype.markSquare = function(array, playerObject) {
+Board.prototype.markSquare = function(array, playerObject, gameObject) {
   var inputCoords = array;
   var mark = playerObject.mark;
+
+
 
   Object.keys(this).forEach(function(key) {
     console.log(this[key]);
     var square = this[key];
     var location = this[key].position;
     var owner = this[key].ownership;
-    console.log(location)
-    console.log(inputCoords)
-    console.log(owner)
     if ((JSON.stringify(location) === JSON.stringify(inputCoords)) && (owner == "unclaimed")) {
       this[key].ownership = mark;
       console.log("branch hit");
+      gameObject.turnTaker();
+    } else if ((JSON.stringify(location) === JSON.stringify(inputCoords)) && owner != "unclaimed") {
+      alert("Square Claimed");
     }
   }.bind(this));
 
@@ -140,9 +142,11 @@ $(function () {
   $(".gamesquare").click(function() {
     var squareSelected = $(this).attr('id');
     var arrayedInput = arrayCoords(squareSelected);
-    var loggedMark = newBoard.markSquare(arrayedInput, newGame.players[0], newBoard);
-    console.log(loggedMark)
-
-    newGame.turnTaker();
+    if (newGame.activePlayer == "player1") {
+      newBoard.markSquare(arrayedInput, newGame.players[0], newGame);
+    } else if (newGame.activePlayer == "player2") {
+      newBoard.markSquare(arrayedInput, newGame.players[1], newGame);
+    }
+    console.log(newBoard)
   });
 });
