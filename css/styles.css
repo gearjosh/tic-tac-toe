@@ -1,0 +1,13 @@
+.gamesquare {
+  width: 150px;
+  height: 150px;
+  border: 2px #000 solid;
+  font-size: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.row {
+  margin: 0;
+}
