@@ -6,44 +6,54 @@ function Player(){
 function Game() {
   this.players = [];
   this.activePlayer = "player1"
+  this.storedClaims = ["a","b","c","d","e","f","g","h","i"];
 }
 
 function Board() {
   this.square1 = {
     position : [0,0],
-    ownership : "unclaimed"
+    ownership : "unclaimed",
+    storedIndex : 0
   };
   this.square2 = {
     position : [0,1],
-    ownership : "unclaimed"
+    ownership : "unclaimed",
+    storedIndex : 1
   };
   this.square3 = {
     position : [0,2],
-    ownership : "unclaimed"
+    ownership : "unclaimed",
+    storedIndex: 2
   };
   this.square4 = {
     position : [1,0],
-    ownership : "unclaimed"
+    ownership : "unclaimed",
+    storedIndex: 3
   };
   this.square5 = {
     position : [1,1],
-    ownership : "unclaimed"
+    ownership : "unclaimed",
+    storedIndex: 4
   };
   this.square6 = {
       position : [1,2],
-      ownership : "unclaimed"
+      ownership : "unclaimed",
+      storedIndex: 5
   };
   this.square7 = {
     position : [2,0],
-    ownership : "unclaimed"
+    ownership : "unclaimed",
+    storedIndex: 6
   };
   this.square8 = {
       position : [2,1],
-      ownership : "unclaimed"
+      ownership : "unclaimed",
+      storedIndex: 7
   };
   this.square9 = {
       position : [2,2],
-      ownership : "unclaimed"
+      ownership : "unclaimed",
+      storedIndex: 8
   };
 };
 
@@ -81,8 +91,7 @@ Game.prototype.turnTaker = function() {
 Board.prototype.markSquare = function(array, playerObject, gameObject) {
   var inputCoords = array;
   var mark = playerObject.mark;
-
-
+  var innerValidator = false;
 
   Object.keys(this).forEach(function(key) {
     console.log(this[key]);
@@ -91,33 +100,18 @@ Board.prototype.markSquare = function(array, playerObject, gameObject) {
     var owner = this[key].ownership;
     if ((JSON.stringify(location) === JSON.stringify(inputCoords)) && (owner == "unclaimed")) {
       this[key].ownership = mark;
+      gameObject.storedClaims[this[key].storedIndex] = mark;
       console.log("branch hit");
+      innerValidator = true;
       gameObject.turnTaker();
     } else if ((JSON.stringify(location) === JSON.stringify(inputCoords)) && owner != "unclaimed") {
       alert("Square Claimed");
     }
   }.bind(this));
-
-  // this.entries()forEach(function(value) {
-  //   console.log("looping");
-    // var location = this.position;
-    // var owner = this.ownership;
-    // if (location == inputCoords && owner != "unclaimed") {
-    //   this.ownership = mark;
-    //   console.log("branch hit");
-  //   }
-  // }
+  return innerValidator;
 }
 
-  // console.log(methodBoard)
-  // if (mark == "X") {
-  //   console.log(square);
-  //   return "HIT";
-  // } else {
-  //   square.ownership = "player2";
-  //   console.log(square);
-  // }
-// };
+
 
 function arrayCoords(id) {
   var coordinates = id.split("")
@@ -127,7 +121,22 @@ function arrayCoords(id) {
   return coordinates;
 };
 
+Game.prototype.testForWin = function() {
 
+  var checker = this.storedClaims
+
+
+  if ((checker[0] === checker[1] && checker[0] === checker[2])
+   || (checker[3] === checker[4] && checker[3] === checker[5])
+    || (checker[6] === checker[7] && checker[6] === checker[8])
+     || (checker[0] === checker[3] && checker[0] === checker[6])
+      || (checker[2] === checker[5] && checker[2] === checker[8])
+       || (checker[1] === checker[4] && checker[1] === checker[7])
+        || (checker[0] === checker[4] && checker[0] === checker[8])
+         || (checker[2] === checker[4] && checker[2] === checker[6])) {
+           return true;
+         }
+}
 
 
 //Game Logic Begins
@@ -137,16 +146,37 @@ newGame.playerLoad();
 var newBoard = new Board();
 
 
+//Interface Logic
 
 $(function () {
   $(".gamesquare").click(function() {
     var squareSelected = $(this).attr('id');
     var arrayedInput = arrayCoords(squareSelected);
     if (newGame.activePlayer == "player1") {
-      newBoard.markSquare(arrayedInput, newGame.players[0], newGame);
+      var validator = newBoard.markSquare(arrayedInput, newGame.players[0], newGame);
+      console.log(validator)
+      if (validator === true) {
+        console.log("hit")
+        $(this).text("X");
+      }
     } else if (newGame.activePlayer == "player2") {
-      newBoard.markSquare(arrayedInput, newGame.players[1], newGame);
+      var validator = newBoard.markSquare(arrayedInput, newGame.players[1], newGame);
+      if (validator === true) {
+        console.log("hit")
+        $(this).text("O");
+      }
+    }
+    var isItAWin = newGame.testForWin();
+    console.log(isItAWin);
+    if (isItAWin === true && newGame.activePlayer == "player2") {
+      $('.win-screen').show();
+      $('#winner').prepend("Player 1");
+    }
+    else if (isItAWin === true && newGame.activePlayer == "player1") {
+      $('#winner').prepend("Player 2");
     }
     console.log(newBoard)
+    console.log(newGame.storedClaims)
+
   });
 });

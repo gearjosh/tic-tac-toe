@@ -11,3 +11,8 @@
 .row {
   margin: 0;
 }
+
+
+.win-screen {
+  display: none;
+}
