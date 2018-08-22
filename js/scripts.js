@@ -9,47 +9,41 @@ function Game() {
 }
 
 function Board() {
-  this.row1 = {
-    square1 : {
-      position : [0,0],
-      ownership : "unclaimed"
-    },
-    square2 : {
-      position : [0,1],
-      ownership : "unclaimed"
-    },
-    square3 : {
-      position : [0,2],
-      ownership : "unclaimed"
-    }
-  },
-  this.row2 = {
-    square1 : {
-      position : [1,0],
-      ownership : "unclaimed"
-    },
-    square2 : {
+  this.square1 = {
+    position : [0,0],
+    ownership : "unclaimed"
+  };
+  this.square2 = {
+    position : [0,1],
+    ownership : "unclaimed"
+  };
+  this.square3 = {
+    position : [0,2],
+    ownership : "unclaimed"
+  };
+  this.square4 = {
+    position : [1,0],
+    ownership : "unclaimed"
+  };
+  this.square5 = {
     position : [1,1],
     ownership : "unclaimed"
-    },
-    square3 : {
+  };
+  this.square6 = {
       position : [1,2],
       ownership : "unclaimed"
-    }
-  },
-  this.row3 = {
-    square1 : {
+  };
+  this.square7 = {
     position : [2,0],
     ownership : "unclaimed"
-  },
-    square2 : {
+  };
+  this.square8 = {
       position : [2,1],
       ownership : "unclaimed"
-    },
-    square3 : {
+  };
+  this.square9 = {
       position : [2,2],
       ownership : "unclaimed"
-    }
   };
 };
 
@@ -84,18 +78,44 @@ Game.prototype.turnTaker = function() {
   console.log(currentPlayer);
 };
 
-Board.prototype.markSquare = function(square, playerObject) {
-  var position = square.position;
+Board.prototype.markSquare = function(array, playerObject) {
+  var inputCoords = array;
   var mark = playerObject.mark;
-  if (mark == "X") {
-    square.ownership = "player1";
-    console.log(square);
-    return "HIT";
-  } else {
-    square.ownership = "player2";
-    console.log(square);
-  }
-};
+
+  Object.keys(this).forEach(function(key) {
+    console.log(this[key]);
+    var square = this[key];
+    var location = this[key].position;
+    var owner = this[key].ownership;
+    console.log(location)
+    console.log(inputCoords)
+    console.log(owner)
+    if ((JSON.stringify(location) === JSON.stringify(inputCoords)) && (owner == "unclaimed")) {
+      this[key].ownership = mark;
+      console.log("branch hit");
+    }
+  }.bind(this));
+
+  // this.entries()forEach(function(value) {
+  //   console.log("looping");
+    // var location = this.position;
+    // var owner = this.ownership;
+    // if (location == inputCoords && owner != "unclaimed") {
+    //   this.ownership = mark;
+    //   console.log("branch hit");
+  //   }
+  // }
+}
+
+  // console.log(methodBoard)
+  // if (mark == "X") {
+  //   console.log(square);
+  //   return "HIT";
+  // } else {
+  //   square.ownership = "player2";
+  //   console.log(square);
+  // }
+// };
 
 function arrayCoords(id) {
   var coordinates = id.split("")
@@ -119,9 +139,8 @@ var newBoard = new Board();
 $(function () {
   $(".gamesquare").click(function() {
     var squareSelected = $(this).attr('id');
-    console.log(squareSelected);
     var arrayedInput = arrayCoords(squareSelected);
-    var loggedMark = newBoard.markSquare(arrayedInput, newGame.players[0]);
+    var loggedMark = newBoard.markSquare(arrayedInput, newGame.players[0], newBoard);
     console.log(loggedMark)
 
     newGame.turnTaker();
