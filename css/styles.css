@@ -3,6 +3,7 @@
 .win-screen {
   display: none;
   text-align: center;
+  margin-top: 12%;
 }
 
 .row, .container{
@@ -79,7 +80,7 @@ p, h1, h2, h3, span, html{
   font-family: 'Audiowide', cursive;
 }
 
-h1 {
+h1, h3 {
   text-shadow: 2px 2px 3px #BA000C;
 }
 

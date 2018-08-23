@@ -194,6 +194,7 @@ $(function () {
     startGame();
     $(".gamesquare").empty();
     $(".gamesquare").removeClass("game-over");
+    $("#winner").empty();
   });
 
   $("#1D").click(function() {
