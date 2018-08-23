@@ -1,6 +1,6 @@
 # _Ultra Tic Tac Toe_
 
-#### _A JavaScript Game of Tic Tac Toe  8/15/2018_
+#### _A JavaScript Game of Tic Tac Toe  8/22/2018_
 
 #### By _**Dan Mace & Josh Gearheart**_
 
