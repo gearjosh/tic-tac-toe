@@ -10,12 +10,12 @@ _This site was created to explore logic statements through constructors and prot
 
 ## Project Specifications
 
-* _Later.
+_Later._
 
 ## Setup/Installation Requirements
 
-* _ES6 compatible browser required to view_
-* _Must have local versions of Materialize, jQuery and Google Font families to run offline_
+_ES6 compatible browser required to view_
+_Must have local versions of Materialize, jQuery and Google Font families to run offline_
 
 
 ## Known Bugs // Future Updates

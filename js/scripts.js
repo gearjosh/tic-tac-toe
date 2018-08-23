@@ -89,8 +89,9 @@ Board.prototype.markSquare = function(array, playerObject, gameObject) {
   var inputCoords = array;
   var mark = playerObject.mark;
   var innerValidator = false;
-
+  console.log(inputCoords);
   Object.keys(this).forEach(function(key) {
+    //this[key] = square
     var square = this[key];
     var location = this[key].position;
     var owner = this[key].ownership;
@@ -100,7 +101,10 @@ Board.prototype.markSquare = function(array, playerObject, gameObject) {
       innerValidator = true;
       gameObject.turnTaker();
     } else if ((JSON.stringify(location) === JSON.stringify(inputCoords)) && owner != "unclaimed") {
-      alert("Square Claimed"); //<-- use jQuery
+      $("#"+inputCoords.join("")).addClass("shake-horizontal");
+      setTimeout(function() {
+       $("#"+inputCoords.join("")).removeClass("shake-horizontal");
+     }, 350);
     }
   }.bind(this));
   return innerValidator;
@@ -140,6 +144,7 @@ var newGame;
 var newBoard;
 var xWav = new Audio('wav/X.wav');
 var oWav = new Audio('wav/O.wav');
+var dontDoIt = new Audio('wav/bleep_05.wav');
 
 function startGame() {
   newGame = new Game();
@@ -160,13 +165,18 @@ $(function () {
       if (validator == true) {
         $(this).text("X");
         xWav.play();
+      } else {
+        dontDoIt.play();
       }
+
     } else if (newGame.activePlayer == "player2") {
       var validator = newBoard.markSquare(arrayedInput, newGame.players[1], newGame);
       if (validator == true) {
         $(this).addClass("o-class");
         $(this).text("O");
         oWav.play();
+      } else {
+        dontDoIt.play();
       }
     }
 
@@ -195,6 +205,8 @@ $(function () {
     $(".gamesquare").empty();
     $(".gamesquare").removeClass("game-over");
     $("#winner").empty();
+    $("#oneD").show();
+    $("#play-assist").show();
   });
 
   $("#1D").click(function() {
@@ -207,4 +219,50 @@ $(function () {
     $("#game-row").addClass("oneD-mode")
     $("#game-container").addClass("oneD-mode")
   })
+
+  $("#play-assist").click(function() {
+    var randomX = Math.floor(Math.random() * 2.999999999);
+    var randomY = Math.floor(Math.random() * 2.999999999);
+    var randomCoords = [];
+
+    randomCoords.push(randomX, randomY);
+    console.log(randomX, randomY, randomCoords);
+
+    if (newGame.activePlayer == "player1") {
+      var validator = newBoard.markSquare(randomCoords, newGame.players[0], newGame);
+      if (validator == true) {
+        $("#"+randomCoords.join("")).text("X");
+        xWav.play();
+      } else {
+        dontDoIt.play();
+      }
+    } else if (newGame.activePlayer == "player2") {
+      var validator = newBoard.markSquare(randomCoords, newGame.players[1], newGame);
+      if (validator == true) {
+        $("#"+randomCoords.join("")).addClass("o-class");
+        $("#"+randomCoords.join("")).text("O");
+        oWav.play();
+      } else {
+        dontDoIt.play();
+      }
+    }
+
+      var isItAWin = newGame.testForWin();
+
+      if (isItAWin == "true" && newGame.activePlayer == "player2") {
+        $('.gamesquare').addClass("game-over");
+        $('.win-screen').show();
+        $('#winner').text("Player 1 won!");
+      }
+      else if (isItAWin == "true" && newGame.activePlayer == "player1") {
+        $('.gamesquare').addClass("game-over");
+        $('.win-screen').show();
+        $('#winner').text("Player 2 won");
+      }
+      else if (isItAWin == "tie") {
+        $('.gamesquare').addClass("game-over");
+        $('.win-screen').show();
+        $('#winner').text("The only way to win is not to play.");
+      }
+  });
 });
