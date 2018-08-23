@@ -128,15 +128,19 @@ Game.prototype.testForWin = function() {
            return true;
          }
 }
-
 // Game Logic (public class?)
-var newGame = new Game();
-newGame.playerLoad();
-
-var newBoard = new Board();
-
+var newGame;
+var newBoard;
 var xWav = new Audio('wav/X.wav');
 var oWav = new Audio('wav/O.wav');
+
+// function startGame() {
+  newGame = new Game();
+  newGame.playerLoad();
+
+  newBoard = new Board();
+// }
+
 // Interface Logic
 
 $(function () {
@@ -165,10 +169,12 @@ $(function () {
     var isItAWin = newGame.testForWin();
 
     if (isItAWin === true && newGame.activePlayer == "player2") {
+      $('.gamesquare').addClass("game-over");
       $('.win-screen').show();
       $('#winner').prepend("Player 1");
     }
     else if (isItAWin === true && newGame.activePlayer == "player1") {
+      $('.gamesquare').addClass("game-over");
       $('.win-screen').show();
       $('#winner').prepend("Player 2");
     }
