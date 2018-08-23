@@ -1,18 +1,73 @@
-.gamesquare {
-  width: 150px;
-  height: 150px;
-  border: 2px #000 solid;
-  font-size: 120px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.row {
-  margin: 0;
-}
 
 
 .win-screen {
   display: none;
+}
+
+.row, .container {
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.gamesquare {
+  width: 150px;
+  height: 150px;
+  border: 4px #657D7F solid;
+  outline: 2px #C9FBFF solid;
+  font-size: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-shadow: 2px 2px 3px #FF8E00;
+  font-family: 'Black Ops One', cursive;
+}
+
+
+
+
+html, body, .background {
+  height: 100%;
+  width: 100%;
+}
+p, h1, h2, h3, span, html{
+  color: #C9FBFF;
+  font-family: 'Audiowide', cursive;
+}
+
+h1 {
+  text-shadow: 2px 2px 3px #BA000C;
+}
+
+.o-class {
+  text-shadow: 2px 2px 3px #D200E8;
+}
+
+
+
+.background {
+/* https://www.gradient-animator.com/ with some modifications*/
+  background: linear-gradient(217deg, #000000, #2e72c1, #000, #2e72c1, #000000);
+  background-size: 1000% 1000%;
+
+  -webkit-animation: bg-animator 4s linear infinite alternate;
+  -moz-animation: bg-animator 4s linear infinite alternate;
+  animation: bg-animator 4s linear infinite alternate;
+}
+
+@-webkit-keyframes bg-animator {
+    0%{background-position:0% 100%}
+    50%{background-position:100% 0%}
+    100%{background-position:0% 100%}
+}
+@-moz-keyframes bg-animator {
+    0%{background-position:0% 100%}
+    50%{background-position:100% 0%}
+    100%{background-position:0% 100%}
+}
+@keyframes bg-animator {
+    0%{background-position:0% 100%}
+    50%{background-position:100% 0%}
+    100%{background-position:0% 100%}
 }

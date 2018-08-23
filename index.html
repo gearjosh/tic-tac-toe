@@ -5,7 +5,7 @@
     <!-- Compiled and minified Materialize CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
     <!-- Google Fonts API -->
-
+    <link href="https://fonts.googleapis.com/css?family=Audiowide|Black+Ops+One" rel="stylesheet">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/styles.css" type="text/css">
     <!-- jQuery 3.3.1 -->
@@ -13,10 +13,11 @@
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
     <!-- Custom Scripts -->
-    <script src="js/scripts.js"type="text/javascript"></script>
+    <script src="js/scripts.js" type="text/javascript"></script>
     <title>ULTRA TIC TAC TOE</title>
   </head>
   <body>
+    <div class="background">
     <div class="container">
       <div class="row">
         <div class="col s12">
@@ -25,12 +26,16 @@
           </div>
         </div>
       </div>
+      <div class="row">
+        <div class="container">
+
+
       <div class="game-board">
         <div class="row row1">
-          <div id="00" class="col gamesquare col1">
+          <div id="00" class="col  offset-s2 gamesquare col1">
 
           </div>
-          <div id="01" class="col gamesquare col2">
+          <div id="01" class="col  gamesquare col2">
 
           </div>
           <div id="02" class="col gamesquare col3">
@@ -38,7 +43,7 @@
           </div>
         </div>
         <div class="row row2">
-          <div id="10" class="col gamesquare col1">
+          <div id="10" class="col offset-s2 gamesquare col1">
 
           </div>
           <div id="11" class="col gamesquare col2">
@@ -49,7 +54,7 @@
           </div>
         </div>
         <div class="row row3">
-          <div id="20" class="col gamesquare col1">
+          <div id="20" class="col offset-s2 gamesquare col1">
 
           </div>
           <div id="21" class="col gamesquare col2">
@@ -63,6 +68,9 @@
       <div class="win-screen">
         <h3 id="winner"> won!</h3>
       </div>
+      </div>
     </div>
+    </div>
+  </div>
   </body>
 </html>
