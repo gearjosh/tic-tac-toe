@@ -209,7 +209,7 @@ $(function () {
     $("#play-assist").show();
   });
 
-  $("#1D").click(function() {
+  $("#oneD").click(function() {
     var divKiller = $(".row1").contents();
     $(".row1").replaceWith(divKiller);
     var divKiller = $(".row2").contents();
