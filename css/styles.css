@@ -5,7 +5,7 @@
   text-align: center;
 }
 
-.row, .container {
+.row, .container{
   margin-top: 0;
   margin-bottom: 0;
   margin-left: auto;
@@ -33,7 +33,41 @@
   animation: scale-up-center 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) infinite alternate both;
 }
 
+.btn, .btn-large {
+  background-color: #2536A8;
+}
 
+.waves-effect.waves-custom .waves-ripple {
+  background-color: rgba(200, 224, 240, 0.65);
+}
+
+.header {
+  margin-bottom: 40px;
+  display: flex;
+}
+
+.btn:hover, .btn:active, .btn:focus, .waves-effect.waves-custom .waves-ripple :hover {
+  background-color: #6183F3;
+}
+
+.buttyn {
+  margin-left: auto;
+  margin-right: auto;
+  display: inline-block;
+  justify-content: center;
+}
+
+.game-board {
+  display: none;
+}
+
+.oneD-mode {
+  width: 1450px;
+  max-width: 1450px;
+  position: absolute;
+  top: 50%;
+  right: 8%;
+}
 
 
 html, body, .background {
@@ -61,6 +95,7 @@ h1 {
 /* https://www.gradient-animator.com/ with some modifications*/
   background: linear-gradient(217deg, #000000, #2e72c1, #000, #2e72c1, #000000);
   background-size: 1000% 1000%;
+  overflow: visible;
 
   -webkit-animation: bg-animator 4s linear infinite alternate;
   -moz-animation: bg-animator 4s linear infinite alternate;

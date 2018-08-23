@@ -20,14 +20,14 @@ _This site was created to explore logic statements through constructors and prot
 
 ## Known Bugs // Future Updates
 
-_Add tiebreaker scenario_
+- [ ] _Add tiebreaker scenario_
 
-_Add reset board button_
+- [ ] _Add reset board button_
 
 _Add Player Name inputs to display on win_
 _Hide game board until submit on Player Name inputs, and hide inputs on submit_
 
-_Figure out a true center on columns with materialize or bootstrap? Not possible...?_
+- [ ]_Figure out a true center on columns with materialize or bootstrap? Not possible...?_
 _Because columns are floated in order to make the divs display next to each other.  Not using Materialize/Bootstrap container/row/columns and constructing this from scratch using strict positioning would improve UI balance.  Center can be feigned in M/BS with even columns using offsets with offset-s4 or similar._
 
 _Add Game Mode Option at Input Screen: Play 1D Tic-Tac-Toe (just set all gamesquares to one row)_

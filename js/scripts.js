@@ -116,7 +116,8 @@ function arrayCoords(id) {
 
 Game.prototype.testForWin = function() {
   var checker = this.storedClaims
-
+  var result = "false";
+  console.log(checker.join(""))
   if ((checker[0] === checker[1] && checker[0] === checker[2])
    || (checker[3] === checker[4] && checker[3] === checker[5])
     || (checker[6] === checker[7] && checker[6] === checker[8])
@@ -125,8 +126,14 @@ Game.prototype.testForWin = function() {
        || (checker[1] === checker[4] && checker[1] === checker[7])
         || (checker[0] === checker[4] && checker[0] === checker[8])
          || (checker[2] === checker[4] && checker[2] === checker[6])) {
-           return true;
-         }
+           result = "true";
+           console.log(result)
+           return result;
+  } else if (/[XO]{9}/g.test(checker.join(""))) {
+    result = "tie";
+    console.log(result)
+    return result;
+ }
 }
 // Game Logic (public class?)
 var newGame;
@@ -134,12 +141,12 @@ var newBoard;
 var xWav = new Audio('wav/X.wav');
 var oWav = new Audio('wav/O.wav');
 
-// function startGame() {
+function startGame() {
   newGame = new Game();
   newGame.playerLoad();
 
   newBoard = new Board();
-// }
+}
 
 // Interface Logic
 
@@ -150,16 +157,13 @@ $(function () {
     // Refactor to function, should maintain with newGame global
     if (newGame.activePlayer == "player1") {
       var validator = newBoard.markSquare(arrayedInput, newGame.players[0], newGame);
-
-      if (validator === true) {
+      if (validator == true) {
         $(this).text("X");
         xWav.play();
       }
     } else if (newGame.activePlayer == "player2") {
-      var validator = newBoard.markSquare(arrayedInput,
-
-      newGame.players[1], newGame);
-      if (validator === true) {
+      var validator = newBoard.markSquare(arrayedInput, newGame.players[1], newGame);
+      if (validator == true) {
         $(this).addClass("o-class");
         $(this).text("O");
         oWav.play();
@@ -168,15 +172,38 @@ $(function () {
 
     var isItAWin = newGame.testForWin();
 
-    if (isItAWin === true && newGame.activePlayer == "player2") {
+    if (isItAWin == "true" && newGame.activePlayer == "player2") {
       $('.gamesquare').addClass("game-over");
       $('.win-screen').show();
-      $('#winner').prepend("Player 1");
+      $('#winner').text("Player 1 won!");
     }
-    else if (isItAWin === true && newGame.activePlayer == "player1") {
+    else if (isItAWin == "true" && newGame.activePlayer == "player1") {
       $('.gamesquare').addClass("game-over");
       $('.win-screen').show();
-      $('#winner').prepend("Player 2");
+      $('#winner').text("Player 2 won");
+    }
+    else if (isItAWin == "tie") {
+      $('.gamesquare').addClass("game-over");
+      $('.win-screen').show();
+      $('#winner').text("The only way to win is not to play.");
     }
   });
+
+  $("#new-game").click(function() {
+    $(".game-board").show();
+    startGame();
+    $(".gamesquare").empty();
+    $(".gamesquare").removeClass("game-over");
+  });
+
+  $("#1D").click(function() {
+    var divKiller = $(".row1").contents();
+    $(".row1").replaceWith(divKiller);
+    var divKiller = $(".row2").contents();
+    $(".row2").replaceWith(divKiller);
+    var divKiller = $(".row3").contents();
+    $(".row3").replaceWith(divKiller);
+    $("#game-row").addClass("oneD-mode")
+    $("#game-container").addClass("oneD-mode")
+  })
 });
